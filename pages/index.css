@@ -1,0 +1,29 @@
+@import url('../vendor/normalize.css');
+@import url('../vendor/fonts.css');
+
+
+.page {  
+  max-width: 1280px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 45px 200px 0 200px;
+  box-sizing: border-box;
+  background-color: #000;
+  font-family: 'Inter', Arial, sans-serif;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+
+.logo {
+  width: 100%;
+  min-height: 74px;
+  border-bottom: solid 1px #545454;
+  background-image: url('../images/logo.svg');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 142px 33px;
+}
