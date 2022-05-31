@@ -1,0 +1,14 @@
+.logo__image:hover { 
+  cursor: pointer; 
+}
+
+.logo__image:hover path { 
+  fill: #000;
+}
+
+@media screen and (max-width: 1279px) {
+  .logo__image {
+    width: 103.7px;
+    margin-left: 27px;
+  }
+}

@@ -1,0 +1,10 @@
+.content__places {  
+  margin: 0 auto;
+  margin-bottom: 67px;
+}
+
+@media screen and (max-width: 1279px) {
+  .content__places {
+    margin-bottom: 48px;
+  }
+}

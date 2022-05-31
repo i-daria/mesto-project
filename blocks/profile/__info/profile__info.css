@@ -1,0 +1,14 @@
+.profile__info {
+  display: grid;
+  grid-template-columns: minmax(min-content, max-content) 24px;
+  gap: 13px 18px; /* в макете без учета хвоста У 16px */
+  align-items: baseline;
+  justify-items: start;
+}
+
+@media screen and (max-width: 1279px) {
+  .profile__info {
+    justify-items: center;
+    gap: 14px 10px; 
+  }
+}
