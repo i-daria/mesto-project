@@ -6,3 +6,6 @@
 
 ## Используемые технологии:
 HTML5, CSS3, Grid Layout, Flexbox, адаптивная верстка, БЭМ
+
+## Сайт проекта: 
+[Mesto](https://i-daria.github.io/mesto-project/index.html)
