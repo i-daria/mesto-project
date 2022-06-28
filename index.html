@@ -73,16 +73,34 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <div class="popup"> <!--  для показа блока добавить класс popup_opened -->
+  <div class="popup popup-profile"> <!--  для показа блока добавить класс popup_opened -->
     <div class="popup__container">
       <form action="#" name="formEditProfile" method="post" class="form">
         <h2 class="form__heading">Редактировать профиль</h2>
         <input type="text" class="form__input" id="userName" name="userName" placeholder="Имя">
         <input type="text" class="form__input" id="aboutUser" name="aboutUser" placeholder="О себе">
         <button type="submit" class="button button_type_submit">Сохранить</button>
-        <button type="button" class="button button_type_close" aria-label="закрыть форму редактирования профиля"></button>
+        <button type="reset" class="button button_type_close" aria-label="закрыть форму редактирования профиля"></button>
       </form>
     </div>
   </div>
+
+  <div class="popup popup-new-place"> <!--  для показа блока добавить класс popup_opened -->
+    <div class="popup__container">
+      <form action="#" name="formAddPlace" method="post" class="form">
+        <h2 class="form__heading">Новое место</h2>
+        <input type="text" class="form__input" id="placeName" name="placeName" placeholder="Название">
+        <input type="text" class="form__input" id="placeLink" name="placeLink" placeholder="Ссылка на картинку">
+        <button type="submit" class="button button_type_submit">Сохранить</button>
+        <button type="reset" class="button button_type_close" aria-label="закрыть форму добавления места"></button>
+      </form>
+    </div>
+  </div>
+
+  <template>
+    новое место
+  </template>
+
+  <script src="./pages/index.js"></script>
 </body>
 </html>
