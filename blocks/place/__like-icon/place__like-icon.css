@@ -1,4 +1,4 @@
-.place__like-icon {  
+.place__like-icon {
   width: 22px;
   height: 19px;
   background-image: url('../../../images/icon-heart.svg');
@@ -11,7 +11,8 @@
   opacity: 0.5;
 }
 
-.place__like-icon:active {
+.place__like-icon:active,
+.place__like-icon.liked {
   opacity: 1;
   background-image: url('../../../images/icon-black-heart.png');
 }

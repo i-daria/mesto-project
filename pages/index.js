@@ -99,12 +99,8 @@ function publicPlace(namePlace, linkPlace) {
   places.prepend(placeElement);
 
   document.querySelector('.place__trash-icon').addEventListener('click', deletePlace);
+  document.querySelector('.place__like-icon').addEventListener('click', likePlace);
 }
-
-  // вставить 6 мест при загрузке страницы из массива initialCards
-  initialCards.forEach(function (card) {
-    publicPlace (card.name, card.link);
-  });
 
 // опубликовать карточку, взяв данные из формы
 function addNewPlace(evt){
@@ -124,11 +120,10 @@ function deletePlace (){
   const cardPlace = this.closest('.place').remove();
 }
 
-
-
-
-  // toggle liked
-
+// переключатель liked
+function likePlace (evt) {
+  evt.target.classList.toggle('liked');
+}
 
 // попап с картинкой
 
