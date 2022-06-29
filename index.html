@@ -24,7 +24,7 @@
     </section>
 
     <section class="places content__places">
-      <div class="place places__place">
+      <!-- <div class="place places__place">
         <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="place__image">
         <div class="place__info-block">
           <h2 class="place__name">Карачаевск</h2>
@@ -65,7 +65,7 @@
           <h2 class="place__name">Карачаево-Черкесия</h2>
           <button type="button" class="button place__like-icon" aria-label="поставить отметку Нравится"></button>
         </div>
-      </div>
+      </div> -->
     </section>
   </main>
 
@@ -97,8 +97,14 @@
     </div>
   </div>
 
-  <template>
-    новое место
+  <template id="place">
+    <div class="place places__place">
+      <img alt="фотография места" class="place__image">
+      <div class="place__info-block">
+        <h2 class="place__name"></h2>
+        <button type="button" class="button place__like-icon" aria-label="поставить отметку Нравится"></button>
+      </div>
+    </div>
   </template>
 
   <script src="./pages/index.js"></script>
