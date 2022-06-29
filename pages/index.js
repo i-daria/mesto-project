@@ -25,11 +25,6 @@ const initialCards = [
   }
   ];
 
-  // вставить 6 мест при загрузке страницы из массива initialCards
-  initialCards.forEach(function (card) {
-    publicPlace (card.name, card.link);
-  });
-
 
 // popup profile
 const userName = document.querySelector('.profile__name');
@@ -51,10 +46,24 @@ const popupNewPlace = document.querySelector('.popup-new-place');
 const formAddPlace = document.querySelector('form[name="formAddPlace"]');
 const buttonClosePlace = formAddPlace.querySelector('button[type="reset"]');
 
+//скопируем и наполним шаблон place
+const places = document.querySelector('.places'); // куда вставлять
+const placeTemplate = document.querySelector('#place').content; // содержимое шаблона
+
+
+
+
+
+
+
 buttonAddPlace.addEventListener('click', function(){openPopup(popupNewPlace)});
 buttonClosePlace.addEventListener('click', closePopup);
 formAddPlace.addEventListener('submit', addNewPlace);
 
+  // вставить 6 мест при загрузке страницы из массива initialCards
+  initialCards.forEach(function (card) {
+    publicPlace (card.name, card.link);
+  });
 
 // открывает popup, в колбеке addEventListener передать параметр - эл-т popup
 function openPopup(popup){
@@ -80,19 +89,22 @@ function saveFormProfile (evt) {
   this.closest('.popup').classList.remove('popup_opened');
 
 }
-//наполнение сайта карточкама place
 
-//скопируем и наполним шаблон place
-const places = document.querySelector('.places'); // куда вставлять
-const placeTemplate = document.querySelector('#place').content; // содержимое шаблона
-
+  //наполнение сайта карточкама place
 //добавить на сайт новое место, в параметрах имя и ссылка (из массива или с формы)
 function publicPlace(namePlace, linkPlace) {
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true); //скопировали эл-т div .place
   placeElement.querySelector('.place__name').textContent = namePlace;
   placeElement.querySelector('.place__image').src = linkPlace;
   places.prepend(placeElement);
+
+  document.querySelector('.place__trash-icon').addEventListener('click', deletePlace);
 }
+
+  // вставить 6 мест при загрузке страницы из массива initialCards
+  initialCards.forEach(function (card) {
+    publicPlace (card.name, card.link);
+  });
 
 // опубликовать карточку, взяв данные из формы
 function addNewPlace(evt){
@@ -107,7 +119,12 @@ function addNewPlace(evt){
   this.closest('.popup').classList.remove('popup_opened');
 };
 
-//удаление места
+//удаляем карточки
+function deletePlace (){
+  const cardPlace = this.closest('.place').remove();
+}
+
+
 
 
   // toggle liked
