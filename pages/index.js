@@ -130,7 +130,7 @@ function renderPlace (namePlace, linkPlace) {
 
 //удалить карточку место
 function deletePlace(evt) {
-  const cardPlace = evt.target.closest(".place").remove();
+  evt.target.closest(".place").remove();
 }
 
 // переключатель нравится / не нравится
@@ -152,6 +152,6 @@ buttonClosePlace.addEventListener("click", function () {
 });
 formAddPlace.addEventListener("submit", addNewPlace);
 
-buttonCloseGallery.addEventListener("click", function (evt) {
-  closePopup(evt.target.closest(".popup"));
+buttonCloseGallery.addEventListener("click", function () {
+  closePopup(gallery);
 });
