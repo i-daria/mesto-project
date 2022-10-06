@@ -25,6 +25,7 @@ const initialCards = [
   },
 ];
 
+
 // popup profile
 const userName = document.querySelector(".profile__name");
 const userAbout = document.querySelector(".profile__profession");
@@ -89,11 +90,80 @@ function openPopup(popup) {
     formUserName.value = userName.textContent;
     formAboutUser.value = userAbout.textContent;
   }
+
+  //добавление слушателя ESC
+  window.addEventListener('keydown', escapePopup)
+
+  //добавление слушателя на оверлэй
+  popup.addEventListener('click', clickOverlayHandler);
+
+  const form = popup.querySelector('.form');
+  if (form) {
+    //добавление слушателя на ввод символов
+    form.addEventListener('input', validateInput);
+
+    //переключаем состояние кнопки отправки формы
+    toggleSubmitButton(form);
+  }
+}
+
+  //проверка валидности всей формы
+  function hasInputError (form) {
+    const inputList = Array.from(form.querySelectorAll('.form__input'));
+    return inputList.some(input => {
+      return !input.validity.valid;
+    });
+  }
+
+  //переключатель отображения кнопки отправки формы
+  function toggleSubmitButton (form) {
+    const submitButton = form.querySelector('.button_type_submit');
+    if (hasInputError(form)) {
+      submitButton.disabled = true;
+    } else {
+      submitButton.disabled = false;
+    }
+  }
+
+//валидация поля ввода
+function validateInput (evt) {
+  const error = document.querySelector(`.${evt.target.id}-error`);
+  if(!evt.target.validity.valid) {
+    showErrorMessage(error, evt.target)
+  } else {
+    hideErrorMessage(error);
+  }
+  toggleSubmitButton(evt.target.closest('.form'));
+}
+
+//показать сообщение об ошибке для невалидного поля
+function showErrorMessage (error, input) {
+  error.style.visibility = "visible";
+    if (input.validity.patternMismatch){
+      error.textContent = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.";
+    } else {
+      error.textContent = input.validationMessage;
+    }
+}
+
+//скрыть сообщение об ошибке для невалидного поля
+function hideErrorMessage (error) {
+  error.style.visibility = "hidden";
 }
 
 // закрыть popup
 function closePopup(element) {
-  element.closest(".popup").classList.remove("popup_opened");
+  const popup =  element.closest(".popup");
+  popup.classList.remove("popup_opened");
+  closeAllError(popup);
+}
+
+// скрыть все сообщения об ошибках при закрытии попапа
+function closeAllError (popup) {
+  const errorList = Array.from(popup.querySelectorAll('.form__input-error'));
+  errorList.forEach(error => {
+    hideErrorMessage(error);
+  });
 }
 
 // сохранить данные профиля
@@ -105,6 +175,21 @@ function saveFormProfile(evt) {
 
   closePopup(this);
 }
+
+// закрытие попапа по ESC
+function escapePopup (evt) {
+  if (evt.key === "Escape") {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+}
+
+// закрытие попапа по клику на оверлэй
+function clickOverlayHandler (evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+}
+
 
 //добавить место, на входе данные из массива или с формы
 function publicPlace(namePlace, linkPlace) {

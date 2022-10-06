@@ -1,0 +1,19 @@
+{
+  "name": "mesto-project",
+  "version": "0.0.1",
+  "description": "Проект представляет собой галлерею из фотографий любимых мест. Пользователь может редактировать свои данные, загружать новые фото и ставить like на понравившиеся фотографии/места.\r Проект адаптирован под мобильные устройства с разрешением от 320px и десктопы от 1280px.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i-daria/mesto-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/i-daria/mesto-project/issues"
+  },
+  "homepage": "https://github.com/i-daria/mesto-project#readme"
+}
