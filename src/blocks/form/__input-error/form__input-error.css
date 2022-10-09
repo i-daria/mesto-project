@@ -1,0 +1,14 @@
+.form__input-error{
+  display: inline-block;
+  width: 100%;
+  min-height: 30px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #FF0000;
+  visibility: hidden;
+}
+
+.form__input-error:last-of-type {
+  margin-bottom: 15px;
+}
