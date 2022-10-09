@@ -5,6 +5,7 @@
   width: 32px;
   height: 32px;
   background-image: url('../../../images/icon-close.png');
+  background-repeat: no-repeat;
   background-size: contain;
   border: none;
 }

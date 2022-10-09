@@ -7,12 +7,13 @@
   border: none;
 }
 
-.place__like-icon:hover {
-  opacity: 0.5;
-}
-
 .place__like-icon:active,
 .place__like-icon.liked {
   opacity: 1;
   background-image: url('../../../images/icon-black-heart.png');
+}
+
+.place__like-icon:hover,
+.place__like-icon.liked:hover {
+  opacity: 0.5;
 }
