@@ -1,17 +1,10 @@
-import {popupProfile, formUserName, formAboutUser, userName, userAbout, popupNewPlace, formAddPlace} from './utils.js';
-import {closeAllError, enableValidation, toggleSubmitButton} from './validate.js';
+import {popupProfile, formUserName, formAboutUser, userName, userAbout, popupNewPlace, formAddPlace, validationSettings} from './utils.js';
+import {closeAllError, isValid, toggleSubmitButton, setEventListeners} from './validate.js';
+
 
 // открыть popup, для формы профиля подставить данные со страницы
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  if (popup === popupProfile) {
-    formUserName.value = userName.textContent;
-    formAboutUser.value = userAbout.textContent;
-  }
-
-  if (popup === popupNewPlace) {
-    formAddPlace.reset();
-  }
 
   //добавление слушателя ESC
   document.addEventListener('keydown', escapePopup)
@@ -19,22 +12,36 @@ function openPopup(popup) {
   //добавление слушателя на оверлэй
   popup.addEventListener('click', clickOverlayHandler);
 
-  const form = popup.querySelector('.form');
-  if (form) {
-    //добавление слушателя на ввод символов
-    form.addEventListener('input', enableValidation);
+  if (popup === popupProfile) {
+    popupProfileHandler(popup);
+  }
 
-    //переключаем состояние кнопки отправки формы
-    toggleSubmitButton(form);
+  if (popup === popupNewPlace) {
+    popupNewPlaceHandler(popup);
   }
 }
 
+//заполнить данными popup профиля при открытии
+function popupProfileHandler (popup) {
+    closeAllError(popup);
+    formUserName.value = userName.textContent;
+    formAboutUser.value = userAbout.textContent;
+
+    setEventListeners(popup.querySelector('.form'));
+}
+
+//очистить форму popup добавление места при открытии
+function popupNewPlaceHandler (popup) {
+  closeAllError(popup);
+  setEventListeners(popup.querySelector('.form'));
+  formAddPlace.reset();
+}
+
 // закрыть popup
-function closePopup(element) {
-  const popup =  element.closest(".popup");
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', escapePopup);
-  closeAllError(popup);
+  popup.removeEventListener('click', clickOverlayHandler);
 }
 
 // сохранить данные профиля
@@ -44,7 +51,7 @@ function saveFormProfile(evt) {
   userName.textContent = formUserName.value;
   userAbout.textContent = formAboutUser.value;
 
-  closePopup(evt.target);
+  closePopup(evt.target.closest(".popup"));
 }
 
 // закрытие попапа по ESC
