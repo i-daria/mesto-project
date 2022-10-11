@@ -51,6 +51,16 @@ const buttonCloseGallery = gallery.querySelector(".button_type_close");
 const galleryImage = gallery.querySelector(".popup__gallery-image");
 const galleryName = gallery.querySelector(".popup__gallery-name");
 
+//параметры валидации форм
+const validationSettings = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelecor: '.button_type_submit',
+  inputErrorClass: 'form__input_invalid',
+  errorClass: 'form__input-error_active'
+}
+
+
 
 export {initialCards, userName, userAbout, buttonEditProfile, popupProfile, formEditProfile, formUserName, formAboutUser, buttonCloseProfile, buttonAddPlace,
-  popupNewPlace, formAddPlace, buttonClosePlace, places, placeTemplate, gallery, buttonCloseGallery, galleryImage, galleryName};
+  popupNewPlace, formAddPlace, buttonClosePlace, places, placeTemplate, gallery, buttonCloseGallery, galleryImage, galleryName, validationSettings};

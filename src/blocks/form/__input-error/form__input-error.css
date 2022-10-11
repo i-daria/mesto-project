@@ -9,6 +9,10 @@
   visibility: hidden;
 }
 
+.form__input-error_active {
+  visibility: visible;
+}
+
 .form__input-error:last-of-type {
   margin-bottom: 15px;
 }
