@@ -1,9 +1,9 @@
 import './index.css';
 
-import {buttonEditProfile, popupProfile, formEditProfile, buttonCloseProfile, buttonAddPlace,
+import {buttonEditProfile, formEditProfile, buttonCloseProfile, popupProfile, buttonAddPlace,
   popupNewPlace, formAddPlace, buttonClosePlace, buttonCloseGallery, galleryImage, galleryName, validationSettings} from '../components/utils.js';
 
-import {openPopup, closePopup, saveFormProfile, } from '../components/modal.js';
+import {openPopupAddCard, openPopupEditProfile, closePopup, saveFormProfile, } from '../components/modal.js';
 
 import {addCard} from '../components/card.js';
 import {enableValidation} from '../components/validate';
@@ -19,14 +19,14 @@ function submitAddCardForm(evt) {
 }
 
 buttonEditProfile.addEventListener("click", function () {
-  openPopup(popupProfile);
+  openPopupEditProfile(popupProfile);
 });
 buttonCloseProfile.addEventListener("click", function () {
   closePopup(buttonCloseProfile.closest(".popup"));
 });
 formEditProfile.addEventListener("submit", saveFormProfile);
 buttonAddPlace.addEventListener("click", function () {
-  openPopup(popupNewPlace);
+  openPopupAddCard(popupNewPlace);
 });
 buttonClosePlace.addEventListener("click", function () {
   closePopup(buttonClosePlace.closest(".popup"));

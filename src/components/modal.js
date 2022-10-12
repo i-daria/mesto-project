@@ -1,5 +1,5 @@
-import {popupProfile, formUserName, formAboutUser, userName, userAbout, popupNewPlace, formAddPlace, validationSettings} from './utils.js';
-import {closeAllError, isValid, toggleSubmitButton, setEventListeners} from './validate.js';
+import {formUserName, formAboutUser, userName, userAbout, formAddPlace, validationSettings} from './utils.js';
+import {closeAllError, toggleSubmitButton} from './validate.js';
 
 
 // открыть popup, для формы профиля подставить данные со страницы
@@ -11,14 +11,21 @@ function openPopup(popup) {
 
   //добавление слушателя на оверлэй
   popup.addEventListener('click', clickOverlayHandler);
+}
 
-  if (popup === popupProfile) {
-    popupProfileHandler(popup);
-  }
+//открыть попап править информацию профиля
+function openPopupEditProfile (popup) {
+  openPopup(popup);
+  popupProfileHandler(popup);
+  toggleSubmitButton(popup.querySelector('.form'));
+}
 
-  if (popup === popupNewPlace) {
-    popupNewPlaceHandler(popup);
-  }
+
+//открыть попап добавить карточку места
+function openPopupAddCard (popup) {
+  openPopup(popup);
+  popupNewPlaceHandler(popup);
+  toggleSubmitButton(popup.querySelector('.form'));
 }
 
 //заполнить данными popup профиля при открытии
@@ -26,14 +33,11 @@ function popupProfileHandler (popup) {
     closeAllError(popup);
     formUserName.value = userName.textContent;
     formAboutUser.value = userAbout.textContent;
-
-    setEventListeners(popup.querySelector('.form'));
 }
 
 //очистить форму popup добавление места при открытии
 function popupNewPlaceHandler (popup) {
   closeAllError(popup);
-  setEventListeners(popup.querySelector('.form'));
   formAddPlace.reset();
 }
 
@@ -68,4 +72,4 @@ function clickOverlayHandler (evt) {
   }
 }
 
-export {openPopup, closePopup, saveFormProfile, escapePopup, clickOverlayHandler};
+export {openPopup, openPopupEditProfile, openPopupAddCard, closePopup, saveFormProfile, escapePopup, clickOverlayHandler};
