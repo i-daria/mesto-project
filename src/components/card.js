@@ -1,25 +1,34 @@
-import {initialCards, places, placeTemplate, gallery, galleryImage, galleryName} from './utils.js'
-import {openPopup} from './modal.js';
-
-// вставить 6 мест при загрузке страницы из массива initialCards
-initialCards.forEach(function (card) {
-  addCard(card.name, card.link);
-});
+import {places, placeTemplate, gallery, galleryImage, galleryName, popupNewPlace} from './utils.js'
+import {openPopup, closePopup, renderLoading} from './modal.js';
+import {sendCard, deletePlace, changeLikePlaceStatus} from './api.js';
 
 //добавления карточки места в DOM
-function addCard (namePlace, linkPlace) {
-  const placeElement = createCard(namePlace, linkPlace);
+function addCard (namePlace, linkPlace, likesPlace, ownerId, myId, placeId) {
+  const placeElement = createCard(namePlace, linkPlace, likesPlace, ownerId, myId, placeId);
   places.prepend(placeElement);
-  setPlaceEventListeners (placeElement, namePlace, linkPlace);
 }
 
 //создать карточку места по данным массива или формы
-function createCard(namePlace, linkPlace) {
+function createCard(namePlace, linkPlace, likesPlace = [], ownerId, myId, placeId) {
   const placeElement = getCardTemplate();
   const placeElementImage = placeElement.querySelector(".place__image");
+  const likeIcon = placeElement.querySelector(".place__like-icon");
+  const likeCount = placeElement.querySelector('.place__like-count');
   placeElement.querySelector(".place__name").textContent = namePlace;
   placeElementImage.src = linkPlace;
   placeElementImage.alt = namePlace;
+  likeCount.textContent = likesPlace.length;
+
+  likesPlace.forEach(like => {
+    if (like._id === myId) {
+      likeIcon.classList.add("liked");
+    }
+  });
+
+  if (ownerId !== myId) {
+    placeElement.querySelector('.place__trash-icon').style.display = 'none';
+  }
+  setPlaceEventListeners (placeElement, namePlace, linkPlace, placeId);
 
   return placeElement;
 }
@@ -31,7 +40,7 @@ function getCardTemplate () {
 }
 
 //добавить новой карточке места слушатели
-function setPlaceEventListeners (placeElement, namePlace, linkPlace) {
+function setPlaceEventListeners (placeElement, namePlace, linkPlace, placeId) {
   placeElement.querySelector(".place__image").addEventListener("click", function () {
     galleryImage.src = linkPlace;
     galleryImage.alt = linkPlace;
@@ -40,18 +49,33 @@ function setPlaceEventListeners (placeElement, namePlace, linkPlace) {
     openPopup(gallery);
   });
 
-  placeElement.querySelector(".place__trash-icon").addEventListener("click", deletePlace);
-  placeElement.querySelector(".place__like-icon").addEventListener("click", likePlace);
+  placeElement.querySelector(".place__trash-icon").addEventListener("click", function () {
+    deletePlace (placeId, placeElement);
+  });
+  placeElement.querySelector(".place__like-icon").addEventListener("click", function (evt) {
+    const likeCount = placeElement.querySelector('.place__like-count');
+    likePlaceHandler(evt.target, placeId, likeCount);
+    evt.target.classList.toggle("liked");
+  });
 }
 
-//удалить карточку место
-function deletePlace(evt) {
-  const cardPlace = evt.target.closest(".place").remove();
+//переключатель лайков карточки места
+function likePlaceHandler (like, placeId, likeCount) {
+  if (like.classList.contains('liked')){
+    changeLikePlaceStatus('DELETE', placeId, likeCount);
+  } else {
+    changeLikePlaceStatus('PUT', placeId, likeCount);
+  }
 }
 
-// переключатель нравится / не нравится
-function likePlace(evt) {
-  evt.target.classList.toggle("liked");
+// добавить место на сайт по данным формы
+function submitAddCardForm(evt) {
+  evt.preventDefault();
+  const buttonSubmit = evt.target.querySelector('.button_type_submit');
+  renderLoading(buttonSubmit, 'Cохранить', true);
+  const placeName = evt.target.querySelector("#placeName").value;
+  const placeLink = evt.target.querySelector("#placeLink").value;
+  sendCard(placeName, placeLink).then(res => renderLoading(buttonSubmit, 'Cохранить', false)).then(res => closePopup(popupNewPlace));
 }
 
-export {addCard, deletePlace, likePlace};
+export {addCard, createCard, changeLikePlaceStatus, submitAddCardForm};

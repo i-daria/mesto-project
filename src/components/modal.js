@@ -20,7 +20,6 @@ function openPopupEditProfile (popup) {
   toggleSubmitButton(popup.querySelector('.form'));
 }
 
-
 //открыть попап добавить карточку места
 function openPopupAddCard (popup) {
   openPopup(popup);
@@ -48,15 +47,6 @@ function closePopup(popup) {
   popup.removeEventListener('click', clickOverlayHandler);
 }
 
-// сохранить данные профиля
-function saveFormProfile(evt) {
-  evt.preventDefault();
-
-  userName.textContent = formUserName.value;
-  userAbout.textContent = formAboutUser.value;
-
-  closePopup(evt.target.closest(".popup"));
-}
 
 // закрытие попапа по ESC
 function escapePopup (evt) {
@@ -72,4 +62,23 @@ function clickOverlayHandler (evt) {
   }
 }
 
-export {openPopup, openPopupEditProfile, openPopupAddCard, closePopup, saveFormProfile, escapePopup, clickOverlayHandler};
+//открыть попап аватар
+function avatarClickHandler (popup) {
+  openPopup(popup);
+  closeAllError(popup);
+  const form = popup.querySelector('.form');
+  form.reset();
+  toggleSubmitButton(form);
+};
+
+
+//переключатель текста кнопки Сохранить -> Сохранение...
+function renderLoading (button, buttonValue, isLoading) {
+  if (isLoading) {
+    button.textContent = 'Сохранение...';
+  } else {
+    button.textContent = buttonValue;
+  }
+}
+
+export {openPopup, openPopupEditProfile, openPopupAddCard, closePopup, escapePopup, clickOverlayHandler, avatarClickHandler, renderLoading};

@@ -1,29 +1,9 @@
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+//popup avatar
+const avatarContainer = document.querySelector(".profile__avatar-container");
+const avatar = document.querySelector(".profile__avatar");
+const popupAvatar = document.querySelector(".popup-avatar");
+const formAvatar = popupAvatar.querySelector('form[name="formEditAvatar"]');
+const buttonCloseAvatar = popupAvatar.querySelector('button[type="reset"]');
 
 // popup profile
 const userName = document.querySelector(".profile__name");
@@ -60,7 +40,14 @@ const validationSettings = {
   errorClass: 'form__input-error_active'
 }
 
+//настройки для работы с сервером
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
+  headers: {
+    authorization: '1e84654b-bbe2-47d6-b9a3-df2413007526',
+    'Content-Type': 'application/json',
+  }
+}
 
-
-export {initialCards, userName, userAbout, buttonEditProfile, popupProfile, formEditProfile, formUserName, formAboutUser, buttonCloseProfile, buttonAddPlace,
+export {config, avatarContainer, avatar, popupAvatar, formAvatar, buttonCloseAvatar, userName, userAbout, buttonEditProfile, popupProfile, formEditProfile, formUserName, formAboutUser, buttonCloseProfile, buttonAddPlace,
   popupNewPlace, formAddPlace, buttonClosePlace, places, placeTemplate, gallery, buttonCloseGallery, galleryImage, galleryName, validationSettings};

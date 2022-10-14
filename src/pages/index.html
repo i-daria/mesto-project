@@ -13,7 +13,9 @@
 
   <main class="content page__content">
     <section class="profile content__profile">
-      <img src="<%=require('../images/avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
+      <div class="profile__avatar-container">
+        <img src="<%=require('../images/avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
+      </div>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button class="button button_type_edit" type="button" aria-label="редактировать профиль"></button>
@@ -36,10 +38,22 @@
         <h2 class="form__heading">Редактировать профиль</h2>
         <input type="text" class="form__input" id="userName" name="userName" placeholder="Имя" required minlength="2" maxlength="40" pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+" data-error-message ="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.">
         <span class="form__input-error userName-error"></span>
-        <input type="text" class="form__input" id="aboutUser" name="aboutUser" placeholder="О себе" required minlength="2" maxlength="200" pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+" data-error-message ="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.">
+        <input type="text" class="form__input" id="aboutUser" name="aboutUser" placeholder="О себе" required minlength="2" maxlength="200" pattern="[a-zA-Zа-яА-ЯёЁ\-\s,\.]+" data-error-message ="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.">
         <span class="form__input-error aboutUser-error"></span>
         <button type="submit" class="button button_type_submit">Сохранить</button>
         <button type="reset" class="button button_type_close" aria-label="закрыть форму редактирования профиля"></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup-avatar">
+    <div class="popup__container popup__container_type_avatar">
+      <form action="#" name="formEditAvatar" method="post" class="form" novalidate>
+        <h2 class="form__heading">Обновить аватар</h2>
+        <input type="url" class="form__input" id="avatarLink" name="avatarLink" placeholder="Ссылка на аватар" required>
+        <span class="form__input-error avatarLink-error"></span>
+        <button type="submit" class="button button_type_submit">Сохранить</button>
+        <button type="reset" class="button button_type_close" aria-label="закрыть форму редактирования аватара"></button>
       </form>
     </div>
   </div>
@@ -72,7 +86,10 @@
       <button type="button" class="button place__trash-icon" aria-label="удалить место"></button>
       <div class="place__info-block">
         <h2 class="place__name"></h2>
-        <button type="button" class="button place__like-icon" aria-label="поставить отметку Нравится"></button>
+        <div class="place__like-container">
+          <button type="button" class="button place__like-icon" aria-label="поставить отметку Нравится"></button>
+          <span class="place__like-count">0</span>
+        </div>
       </div>
     </div>
   </template>
