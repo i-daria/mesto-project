@@ -23,27 +23,39 @@ formAvatar.addEventListener('submit', function (evt) {
   const buttonSubmit = evt.target.querySelector('.button_type_submit');
   renderLoading(buttonSubmit, 'Cохранить', true);
   const avatarLink = evt.target.querySelector("#avatarLink").value;
-  avatarSubmitHandler(avatarLink).then(res => renderLoading(buttonSubmit, 'Cохранить', false)).then(res => closePopup(popupAvatar));
+  avatarSubmitHandler(avatarLink).then(res => avatar.setAttribute('src', res.avatar)).then(res => closePopup(popupAvatar)).catch((err) => console.log(err)).finally(res => renderLoading(buttonSubmit, 'Cохранить', false));
 });
 
 buttonEditProfile.addEventListener("click", function () {
   openPopupEditProfile(popupProfile);
 });
+
 buttonCloseProfile.addEventListener("click", function () {
   closePopup(buttonCloseProfile.closest(".popup"));
 });
+
 formEditProfile.addEventListener("submit", function (evt) {
   evt.preventDefault();
   const buttonSubmit = evt.target.querySelector('.button_type_submit');
   renderLoading(buttonSubmit, 'Cохранить', true);
-  saveProfileHandler(formUserName.value, formAboutUser.value).then(res => renderLoading(buttonSubmit, 'Cохранить', false)).then(res => closePopup(popupProfile));
+  saveProfileHandler(formUserName.value, formAboutUser.value)
+  .then(res => {
+    userName.textContent = res.name;
+    userAbout.textContent = res.about;
+  })
+  .then(res => closePopup(popupProfile))
+  .catch((err) => console.log(err))
+  .finally(res => renderLoading(buttonSubmit, 'Cохранить', false));
 });
+
 buttonAddPlace.addEventListener("click", function () {
   openPopupAddCard(popupNewPlace);
 });
+
 buttonClosePlace.addEventListener("click", function () {
   closePopup(buttonClosePlace.closest(".popup"));
 });
+
 formAddPlace.addEventListener("submit", submitAddCardForm);
 buttonCloseGallery.addEventListener("click", function (evt) {
   galleryImage.src = "#";

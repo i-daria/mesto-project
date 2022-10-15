@@ -28,7 +28,7 @@ function createCard(namePlace, linkPlace, likesPlace = [], ownerId, myId, placeI
   if (ownerId !== myId) {
     placeElement.querySelector('.place__trash-icon').style.display = 'none';
   }
-  setPlaceEventListeners (placeElement, namePlace, linkPlace, placeId);
+  setPlaceEventListeners(placeElement, namePlace, linkPlace, placeId);
 
   return placeElement;
 }
@@ -50,21 +50,26 @@ function setPlaceEventListeners (placeElement, namePlace, linkPlace, placeId) {
   });
 
   placeElement.querySelector(".place__trash-icon").addEventListener("click", function () {
-    deletePlace (placeId, placeElement);
+    deletePlace(placeId, placeElement).then(res => placeElement.remove());
   });
   placeElement.querySelector(".place__like-icon").addEventListener("click", function (evt) {
     const likeCount = placeElement.querySelector('.place__like-count');
     likePlaceHandler(evt.target, placeId, likeCount);
-    evt.target.classList.toggle("liked");
   });
 }
 
 //переключатель лайков карточки места
 function likePlaceHandler (like, placeId, likeCount) {
   if (like.classList.contains('liked')){
-    changeLikePlaceStatus('DELETE', placeId, likeCount);
+    changeLikePlaceStatus('DELETE', placeId)
+    .then (res => likeCount.textContent = res.likes.length)
+    .then(res => like.classList.toggle("liked"))
+    .catch((err) => console.log(err));
   } else {
-    changeLikePlaceStatus('PUT', placeId, likeCount);
+    changeLikePlaceStatus('PUT', placeId)
+    .then (res => likeCount.textContent = res.likes.length)
+    .then(res => like.classList.toggle("liked"))
+    .catch((err) => console.log(err));
   }
 }
 
@@ -75,7 +80,11 @@ function submitAddCardForm(evt) {
   renderLoading(buttonSubmit, 'Cохранить', true);
   const placeName = evt.target.querySelector("#placeName").value;
   const placeLink = evt.target.querySelector("#placeLink").value;
-  sendCard(placeName, placeLink).then(res => renderLoading(buttonSubmit, 'Cохранить', false)).then(res => closePopup(popupNewPlace));
+  sendCard(placeName, placeLink)
+  .then(res => addCard(res.name, res.link, res.likes, res.owner._id, res.owner._id, res._id))
+  .then(res => closePopup(popupNewPlace)).
+  catch((err) => console.log(err))
+  .finally(res => renderLoading(buttonSubmit, 'Cохранить', false));
 }
 
-export {addCard, createCard, changeLikePlaceStatus, submitAddCardForm};
+export {addCard, createCard, submitAddCardForm};
