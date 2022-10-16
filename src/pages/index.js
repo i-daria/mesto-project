@@ -23,7 +23,11 @@ formAvatar.addEventListener('submit', function (evt) {
   const buttonSubmit = evt.target.querySelector('.button_type_submit');
   renderLoading(buttonSubmit, 'Cохранить', true);
   const avatarLink = evt.target.querySelector("#avatarLink").value;
-  avatarSubmitHandler(avatarLink).then(res => avatar.setAttribute('src', res.avatar)).then(res => closePopup(popupAvatar)).catch((err) => console.log(err)).finally(res => renderLoading(buttonSubmit, 'Cохранить', false));
+  avatarSubmitHandler(avatarLink)
+  .then(res => avatar.setAttribute('src', res.avatar))
+  .then(res => closePopup(popupAvatar))
+  .catch((err) => console.log(err))
+  .finally(res => renderLoading(buttonSubmit, 'Cохранить', false));
 });
 
 buttonEditProfile.addEventListener("click", function () {

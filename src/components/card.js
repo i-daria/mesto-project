@@ -50,7 +50,7 @@ function setPlaceEventListeners (placeElement, namePlace, linkPlace, placeId) {
   });
 
   placeElement.querySelector(".place__trash-icon").addEventListener("click", function () {
-    deletePlace(placeId, placeElement).then(res => placeElement.remove());
+    deletePlace(placeId, placeElement).then(res => placeElement.remove()).catch((err) => console.log(err));
   });
   placeElement.querySelector(".place__like-icon").addEventListener("click", function (evt) {
     const likeCount = placeElement.querySelector('.place__like-count');
